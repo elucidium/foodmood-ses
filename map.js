@@ -1,24 +1,24 @@
 var map;
 var view;
+var pointsLayer;
+var pointsArray = [];
 var userLatitude = 0;
 var userLongitude = 0;
 var data;
 
+// Prevent form from refreshing the page upon pressing 'enter', then initiate search.
 $("form").submit(function (e) {
     e.preventDefault();
     console.log("Search initiated");
     search();
 });
 
+// Initialize the ArcGIS map.
 require([
     "esri/Map",
-    //"esri/geometry/Point",
-    //"esri/symbols/SimpleMarkerSymbol",
     "esri/views/MapView",
-    //"esri/Graphic",
-    //"esri/layers/GraphicsLayer"
-  ], function(Map, MapView) {
-
+    "esri/layers/GraphicsLayer"
+  ], function(Map, MapView, GraphicsLayer) {
     map = new Map({
       basemap: "topo-vector"
     });
@@ -29,6 +29,10 @@ require([
       center: [userLongitude, userLatitude],
       zoom: 15
     });
+    pointsLayer = new GraphicsLayer({
+        graphics: pointsArray
+    });
+    map.add(pointsLayer);
 /*
     map.on("load", function() {
         var gl = new GraphicsLayer();
@@ -40,7 +44,7 @@ require([
         })
         map.addLayer(gl);
     });*/
-    if (typeof data != "undefined") {
+    /*if (typeof data != "undefined") {
         data.forEach(business => {
             console.log("Trying to make point");
             var point = {
@@ -63,17 +67,18 @@ require([
             
             view.graphics.add(pointGraphic);
         });
-    }
+    }*/
 
   });
 
-
+// Upon page loading, prompt user to enable location services, then get the user's location.
 function onLoad() {
     console.log("Console test");
     document.getElementById("greeting").innerHTML = "<div><p class='lead'>Hello! Nice to meet you.</p></div><div><p>Please enable location services to continue.</p></div>";
     getUserLocation();
 }
 
+// Get the user's location.
 function getUserLocation() {
     console.log("ran GetUserLocation");
     if (navigator.geolocation) {
@@ -81,6 +86,7 @@ function getUserLocation() {
     }
 }
 
+// Function that handles the user location and then updates the website's user prompt.
 function passPosition(position) {
     console.log("ran passPosition");
     userLongitude = position.coords.longitude;
@@ -113,41 +119,48 @@ function search() {
                 //document.getElementById('output').append(business.name);
                 const card = document.createElement('div');
                 card.setAttribute('class', 'card');
+                //  link="#861c5e" vlink="#a82475" alink="#bd2884"
                 const h1 = document.createElement('h1');
-                h1.textContent = business.name;
+                h1.innerHTML = '<a href="' + business.url + '" target="blank" rel="noopener noreferrer">' + business.name + '</a>';
                 h1.setAttribute('class', 'logo-purple');
                 const p1 = document.createElement('p');
-                p1.textContent = 'Rating: ' + business.rating;
-                const p2 = document.createElement('p');
-                p2.textContent = 'Price: ' + business.price;
+                
+                var price = business.price;
+                if (typeof price == "undefined") price = "unspecified";
+                var distance = business.distance;
+                distance = (distance / 1000).toFixed(2);
+                p1.textContent = 'rating: ' + business.rating + "/5 | price range: " + price + " | distance: " + distance + " km";
                 card.appendChild(h1);
                 card.appendChild(p1);
-                card.appendChild(p2);
                 document.getElementById('output').appendChild(card);
-                /*var point = {
-                    type: "point",
-                    longitude: business.coordinates.longitude,
-                    latitude: business.coordinates.latitude
-                };
-                var symbol = {
-                    type: "simple-marker",
-                    color: [226, 119, 40], // CHANGE TO LOGO COLOR LATER
-                    outline: {
-                        color: [255, 255, 255],
-                        width: 2
-                    }
-                };
-                var pointGraphic = new pointGraphic({
-                    geometry: point,
-                    symbol: symbol
-                });
-                
-                map.graphics.add(pointGraphic);*/
             });
+            require(["esri/layers/GraphicsLayer", "esri/Graphic"], function(GraphicsLayer, Graphic) {
+                var layer = new GraphicsLayer();
+                data.forEach(business => {
+                    var point = {
+                        type: "point",
+                        longitude: business.coordinates.longitude,
+                        latitude: business.coordinates.latitude
+                    };
+                    var symbol = {
+                        type: "simple-marker",
+                        color: [35, 102, 69],
+                        outline: {
+                            color: [255, 255, 255],
+                            width: 2
+                        }
+                    };
+                    var pointGraphic = new Graphic({
+                        geometry: point,
+                        symbol: symbol
+                    });
+                    layer.add(pointGraphic);
+                })
+                map.add(layer);
+            })
         } else {
             alert("Error occurred while searching Yelp.")
         }
     }
-    
     request.send();
 }
