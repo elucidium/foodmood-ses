@@ -1,9 +1,12 @@
 <html lang="en">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable-no">
         <title>foodmood</title>
+        <!--Bootstrap stylesheet.-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--ArcGIS stylesheet.-->
         <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css">
         <style>
             html, body, #map-view {
@@ -11,34 +14,44 @@
                 margin: 0;
                 height: 100%;
                 width: 100%;
+                max-height: 100%;
             }
         </style>
         <link rel="stylesheet" href="styles.css">
         <link rel="shortcut icon" type="image/png" href="foodmood.png">
     </head>
-    <body onload="onLoad();">
-        <div class="row" style="height:100%; width:100%">
-            <div class="col-lg-8">
+
+    <body onload="onLoad();"> <!--Initializes and prompts user for location services.-->
+        
+        <!--Full-page row containing the entirety of the app.-->
+        <div class="row" style="height:100%; width:100%; max-height: 100%">
+            <!--Map takes up 2/3rds of the width.-->
+            <div class="col-lg-8 left-panel">
                 <div id="map-view"></div>
             </div>
-            <div class="col-lg-4 scroll">
+            <!--Rest of the app takes up the remaining 1/3rd of the width.-->
+            <div class="col-lg-4 right-panel">
                 <div>
+                    <!--App logo.-->
                     <div><img src="foodmood-logo.png" width=100%/></div>
+                    <!--Modified by map.js.-->
                     <div id="greeting" align="center"></div>
                     <form>
                         <input class="form-control" type="text" placeholder="Type and press enter to search..." id="search" style="text-align:center" width=100%>
                     </form>
                 </div>
-                <div id="output" ></div>
+                <!--Search output goes here.-->
+                <div id="output"></div>
             </div>
         </div>
-        <footer>
+
         <!--JS files-->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://js.arcgis.com/4.14/"></script>
         <script src="map.js"></script>
-        <script src="search.js"></script>
+        <!--<script src="search.js"></script>-->
     </body>
+
 </html>
