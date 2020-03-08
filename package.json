@@ -1,0 +1,19 @@
+{
+  "name": "foodmood-ses",
+  "version": "1.0.0",
+  "description": "Submission for SES 2020.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elucidium/foodmood-ses.git"
+  },
+  "author": "Ruiran Xun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elucidium/foodmood-ses/issues"
+  },
+  "homepage": "https://github.com/elucidium/foodmood-ses#readme"
+}
