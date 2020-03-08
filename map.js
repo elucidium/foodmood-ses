@@ -24,7 +24,7 @@ require([
 
 function onLoad() {
     console.log("Console test");
-    document.getElementById("greeting").innerHTML = "<div><p class='lead'>Hello!</p></div><div><p>Please enable location services to continue.</p></div>";
+    document.getElementById("greeting").innerHTML = "<div><p class='lead'>Hello! Nice to meet you.</p></div><div><p>Please enable location services to continue.</p></div>";
     getUserLocation();
 }
 
