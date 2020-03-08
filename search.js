@@ -26,15 +26,17 @@ function search() {
     })
     */
     var request = new XMLHttpRequest();
+    var term = document.getElementById('search').value; // TODO fix this
+    request.open('GET', 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude='+userLatitude+'&longitude='+userLongitude+'&term='+term, true);
     request.setRequestHeader("Authorization", "Bearer te408GrT8_MYTERNfuzhCx7tg7Z_eYjgtctRUhuUf_64G0eMygUST-N-1zqPCa-OB8thDcwKdH1EUhXsIlOEU7q0geAw64gCPNp-p-8_mkpiVwLXS6bCLrfqVgVkXnYx");
-    var term = 'sushi'; // TODO fix this
-    request.open('GET', 'https://api.yelp.com/v3/businesses/search?latitude='+userLatitude+'&longitude='+userLongitude+'&term='+term, true);
     request.onload = function() {
         var data = JSON.parse(this.response);
         if (request.status >= 200 && request.status < 400) {
-            data.forEach(field => {
+            console.log("Made it through the call!");
+            document.getElementById('output').innerHTML = (JSON.stringify(data));
+            /*data.forEach(field => {
                 document.getElementById('output').append(field);
-            })
+            })*/
         } else {
             // error out
         }
