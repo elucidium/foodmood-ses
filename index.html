@@ -13,6 +13,8 @@
             }
         </style>
         <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="shortcut icon" type="image/png" href="foodmood.png">
     </head>
     <body onload="onLoad();">
         <div class="row" style="height:100%; width:100%">
@@ -23,10 +25,11 @@
                 <div>
                     <div></div>
                     <div id="greeting" align="center"></div>
-                    <!--<form class="form-inline">
-                        <input class="form-control" type="text" placeholder="temp placeholder" style="text-align:center">
-                    </form>-->
+                    <form class="form-inline">
+                        <input class="form-control" type="text" placeholder="Type and press enter to search" id="search" style="text-align:center">
+                    </form>
                 </div>
+                <div id="output"></div>
             </div>
         </div>
         <footer>
@@ -37,5 +40,6 @@
 
         <script src="https://js.arcgis.com/4.14/"></script>
         <script src="map.js"></script>
+        <script src="search.js"></script>
     </body>
 </html>

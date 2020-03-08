@@ -16,25 +16,27 @@ require([
       container: "map-view",
       map: map,
       center: [userLongitude, userLatitude],
-      zoom: 13
+      zoom: 15
     });
 
   });
 
 
 function onLoad() {
+    console.log("Console test");
     document.getElementById("greeting").innerHTML = "<div><p class='lead'>Hello!</p></div><div><p>Please enable location services to continue.</p></div>";
     getUserLocation();
 }
 
 function getUserLocation() {
+    console.log("ran GetUserLocation");
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(passPosition);
-        
+        navigator.geolocation.getCurrentPosition(passPosition);        
     }
 }
 
 function passPosition(position) {
+    console.log("ran passPosition");
     userLongitude = position.coords.longitude;
     userLatitude = position.coords.latitude;
     view.goTo([userLongitude, userLatitude]);
@@ -45,21 +47,4 @@ function passPosition(position) {
     else if (12 <= hours && hours < 18) time = 'afternoon';
     else time = 'evening';
     document.getElementById("greeting").innerHTML = "<div><p class='lead'>Good " + time + "! What do you want to eat?</p></div>";
-}
-
-function search() {
-    var request = new XMLHttpRequest();
-    var term = ''; // TODO fix this
-    request.open('GET', 'https://api.yelp.com/v3/businesses/search?latitude='+userLatitude+'&longitude='+userLongitude+'&term='+term, true);
-    request.onload = function() {
-        var data = JSON.parse(this.response);
-        if (request.status >= 200 && request.status < 400) {
-            data.forEach(field => {
-                // do something here
-            })
-        } else {
-            // error out
-        }
-    }
-    request.send();
 }
