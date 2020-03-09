@@ -1,9 +1,9 @@
-.logo-green {
-    color: #236645;
-}
-
-.logo-purple {
-    color: #861c5e;
+html, body, #map-view {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
 }
 
 a {
@@ -21,4 +21,17 @@ a {
 
 #output {
     overflow: scroll;
+}
+
+.right-panel {
+    top: 0; 
+    bottom: 0; 
+    right: 0; 
+    position: fixed; 
+    overflow-y: scroll; 
+    padding-right: 40px;
+}
+
+.row {
+    height:100%; width:100%; max-height: 100%;
 }
