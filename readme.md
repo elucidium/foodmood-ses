@@ -1,6 +1,6 @@
 # foodmood
 
-Submission by Ruiran Xun to Capital One's Summer 2020 software Engineering Summit.
+Submission by Ruiran Xun to Capital One's Summer 2020 Software Engineering Summit.
 
 Implementation details:
 - Bootstrap was used for base-level front-end design.
